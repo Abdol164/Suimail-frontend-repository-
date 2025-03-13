@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom"
 
-const Login = () => {
+const CreateAccount = () => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -15,8 +14,8 @@ const Login = () => {
     setLoading(true);
 
     // Basic frontend validation
-    if (!email || !password) {
-      setError('Email and password are required');
+    if (!email) {
+      setError('Email is required');
       setLoading(false);
       return;
     }
@@ -32,8 +31,8 @@ const Login = () => {
     // Simulate API call
     setTimeout(() => {
       setLoading(false);
-      // Navigate to dashboard or home page 
-      navigate('/dashboard', { state: { email: email + '@suimail' } });
+      // Navigate to next step 
+      navigate('/connect-wallet', { state: { email: email + '@suimail' } });
     }, 1000);
   };
 
@@ -54,21 +53,20 @@ const Login = () => {
 
       {/* Title and Description */}
       <h1 className="text-2xl font-bold text-navy-900 mb-4">
-        Login to SuiMail
+        Create an account
       </h1>
       <p className="text-gray-600 text-center mb-8 max-w-md">
-        Access your secure, decentralized email platform with privacy at its core.
+        Welcome to a decentralized mail system that's secure, powerful and fully private.
       </p>
 
       {/* Form */}
       <form onSubmit={handleSubmit} className="w-full max-w-md">
-        {/* Email Input */}
         <div className="relative mb-4">
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter email address"
+            placeholder="Create a Suimail address"
             className={`w-full px-4 py-3 border ${
               error ? 'border-red-500' : 'border-gray-200'
             } rounded-lg focus:outline-none focus:border-blue-500`}
@@ -79,37 +77,13 @@ const Login = () => {
           </span>
         </div>
 
-        {/* Password Input */}
-        <div className="relative mb-4">
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter password"
-            className={`w-full px-4 py-3 border ${
-              error ? 'border-red-500' : 'border-gray-200'
-            } rounded-lg focus:outline-none focus:border-blue-500`}
-            disabled={loading}
-          />
-        </div>
-
         {error && (
           <div className="mb-4 text-red-500 text-sm text-center">
             {error}
           </div>
         )}
 
-        {/* Forgot Password Link */}
-        <div className="text-right mb-4">
-          <Link 
-            to="/forgot-password" 
-            className="text-blue-500 hover:underline text-sm"
-          >
-            Forgot Password?
-          </Link>
-        </div>
-
-        {/* Login Button */}
+        {/* Next Button */}
         <button
           type="submit"
           disabled={loading}
@@ -137,10 +111,10 @@ const Login = () => {
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 ></path>
               </svg>
-              Logging in...
+              Creating...
             </span>
           ) : (
-            'Login'
+            'Next'
           )}
         </button>
 
@@ -154,17 +128,17 @@ const Login = () => {
           Back
         </button>
 
-        {/* Sign Up Link */}
-        <p className="text-sm text-gray-500 mt-6 text-center">
-          Don't have an account?{' '}
-          <Link to="/CreateAccount" className="text-blue-500 hover:underline">
-            Sign Up
+         {/* Login Link */}
+         <p className="text-sm text-gray-500 mt-6 text-center">
+          Already have an account?{' '}
+          <Link to="/login-page" className="text-blue-500 hover:underline">
+            Login
           </Link>
         </p>
 
         {/* Terms Text */}
-        <p className="text-sm text-gray-500 mt-4 text-center">
-          By logging in, you agree to Suimail's{' '}
+        <p className="text-sm text-gray-500 mt-6 text-center">
+          By clicking Next above, you acknowledge that you have read and agree to Suimail's{' '}
           <a href="#" className="text-blue-500 hover:underline">Terms</a>
           {' '}and{' '}
           <a href="#" className="text-blue-500 hover:underline">Privacy Policy</a>.
@@ -174,4 +148,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default CreateAccount;
